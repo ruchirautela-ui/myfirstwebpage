@@ -1,66 +1,179 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample Blog</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Feedback Form</title>
+    <style>
+        :root{
+            --bg:#f6f8fa; --card:#fff; --accent:#0366d6; --muted:#6b7280;
+            --success:#10b981; --error:#ef4444;
+        }
+        html,body{height:100%}
+        body{
+            margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+            background:linear-gradient(180deg,#eef2ff 0%,var(--bg) 100%); display:flex; align-items:center; justify-content:center;
+            padding:24px;
+        }
+        .card{
+            width:100%; max-width:720px; background:var(--card); border-radius:12px; box-shadow:0 6px 30px rgba(16,24,40,0.08);
+            padding:28px; box-sizing:border-box;
+        }
+        h1{margin:0 0 8px; font-size:20px}
+        p.lead{margin:0 0 18px; color:var(--muted); font-size:14px}
+        form{display:grid; gap:12px}
+        .row{display:flex; gap:12px}
+        .col{flex:1}
+        label{display:block; font-size:13px; margin-bottom:6px}
+        input[type="text"], input[type="email"], textarea, select{
+            width:100%; padding:10px 12px; border:1px solid #e6e9ee; border-radius:8px; font-size:14px; box-sizing:border-box;
+            background:transparent; outline:none;
+        }
+        textarea{min-height:120px; resize:vertical}
+        .help{font-size:12px; color:var(--muted)}
+        .radios{display:flex; gap:10px; flex-wrap:wrap}
+        .radio-label{display:flex; align-items:center; gap:8px; background:#f8fafc; padding:8px 12px; border-radius:8px; cursor:pointer}
+        .actions{display:flex; gap:10px; align-items:center; justify-content:flex-end; margin-top:6px}
+        button{
+            background:var(--accent); color:white; padding:10px 14px; border-radius:8px; border:0; cursor:pointer; font-weight:600;
+        }
+        button[aria-busy="true"]{opacity:0.7; cursor:progress}
+        .secondary{background:#eef2ff; color:var(--accent); border:0}
+        .msg{padding:10px 12px; border-radius:8px; font-size:14px}
+        .msg.success{background:rgba(16,185,129,0.12); color:var(--success); border:1px solid rgba(16,185,129,0.15)}
+        .msg.error{background:rgba(239,68,68,0.08); color:var(--error); border:1px solid rgba(239,68,68,0.12)}
+        .field-error{border-color:var(--error); background:rgba(239,68,68,0.04)}
+        @media (max-width:540px){ .row{flex-direction:column} .actions{justify-content:stretch} }
+    </style>
 </head>
 <body>
-    <!-- hello world- welcome to my blog! -->
-<!--Headings-->
-<img src="img1.jpg" alt="cat" width="100" height="100"/>
-<div style="width: 300px;"> <!--block type -->
-<h1>New evidence raises doubts about the longest US war crimes investigation of the Iraq war and how US forces are held to account.</h1>
-<!-- <h2>raises doubts about the <u>longest</u> US war crimes</h2> -->
-<p>When I rather nervously shared a <mark>personal post</mark>  about dealing with brain fog at work on the social network LinkedIn last week, I had no idea that it would have such an enormous impact.
+    <main class="card" role="main">
+        <h1>Feedback</h1>
+        <p class="lead">We appreciate your feedback. Please tell us about your experience so we can improve.</p>
 
-It's been viewed hundreds of thousands of times. Women have stopped me on the street to talk to me about it.
+        <form id="feedbackForm" novalidate>
+            <div class="row">
+                <div class="col">
+                    <label for="name">Name</label>
+                    <input id="name" name="name" type="text" placeholder="Your name" required />
+                </div>
+                <div class="col">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" placeholder="you@example.com" required />
+                </div>
+            </div>
 
-I've been overwhelmed by hundreds of messages from people sharing support and their own experiences of it.
+            <div>
+                <label for="topic">Topic</label>
+                <select id="topic" name="topic" required>
+                    <option value="">Select a topic</option>
+                    <option>Bug report</option>
+                    <option>Feature request</option>
+                    <option>General feedback</option>
+                    <option>Other</option>
+                </select>
+            </div>
 
-Usually I cover technology news. But given the response, it felt important to talk about this as well.
+            <div>
+                <label>Overall rating</label>
+                <div class="radios" role="radiogroup" aria-labelledby="ratingLabel">
+                    <label class="radio-label"><input type="radio" name="rating" value="5" required /> Excellent</label>
+                    <label class="radio-label"><input type="radio" name="rating" value="4" /> Good</label>
+                    <label class="radio-label"><input type="radio" name="rating" value="3" /> Okay</label>
+                    <label class="radio-label"><input type="radio" name="rating" value="2" /> Poor</label>
+                    <label class="radio-label"><input type="radio" name="rating" value="1" /> Terrible</label>
+                </div>
+            </div>
 
-"Brain fog" isn't a medical term. But you may well know exactly what I'm talking about.
+            <div>
+                <label for="comments">Comments</label>
+                <textarea id="comments" name="comments" placeholder="What went well? What could be improved?" minlength="10" required></textarea>
+                <div class="help">Minimum 10 characters</div>
+            </div>
 
-That moment when you suddenly can't remember the word for something really obvious, or you're mid-sentence and you lose your train of thought. It's infuriating, and it can be embarrassing.</p>
-</div>
-<div style="width: 300px;"> <!--block type -->
-<h1>New evidence raises doubts about the longest US war crimes investigation of the Iraq war and how US forces are held to account.</h1>
-<!-- <h2>raises doubts about the <u>longest</u> US war crimes</h2> -->
-<p>When I rather nervously shared a <mark>personal post</mark>  about dealing with brain fog at work on the social network LinkedIn last week, I had no idea that it would have such an enormous impact.
+            <div>
+                <label for="screenshot">Attach a screenshot (optional)</label>
+                <input id="screenshot" name="screenshot" type="file" accept="image/*" />
+            </div>
 
-It's been viewed hundreds of thousands of times. Women have stopped me on the street to talk to me about it.
+            <div>
+                <label><input type="checkbox" id="consent" required /> I consent to the processing of this feedback</label>
+            </div>
 
-I've been overwhelmed by hundreds of messages from people sharing support and their own experiences of it.
+            <div class="actions">
+                <button type="button" id="resetBtn" class="secondary">Reset</button>
+                <button type="submit" id="submitBtn">Send feedback</button>
+            </div>
 
-Usually I cover technology news. But given the response, it felt important to talk about this as well.
+            <div id="message" aria-live="polite" style="margin-top:12px"></div>
+        </form>
+    </main>
 
-"Brain fog" isn't a medical term. But you may well know exactly what I'm talking about.
+    <script>
+        (function(){
+            const form = document.getElementById('feedbackForm');
+            const msg = document.getElementById('message');
+            const submitBtn = document.getElementById('submitBtn');
+            const resetBtn = document.getElementById('resetBtn');
 
-That moment when you suddenly can't remember the word for something really obvious, or you're mid-sentence and you lose your train of thought. It's infuriating, and it can be embarrassing.</p>
-</div>
-<div style="width: 300px;"> <!--block type -->
-<h1>New evidence raises doubts about the longest US war crimes investigation of the Iraq war and how US forces are held to account.</h1>
-<!-- <h2>raises doubts about the <u>longest</u> US war crimes</h2> -->
-<p>When I rather nervously shared a <mark>personal post</mark>  about dealing with brain fog at work on the social network LinkedIn last week, I had no idea that it would have such an enormous impact.
+            function showMessage(text, type){
+                msg.innerHTML = '';
+                const d = document.createElement('div');
+                d.className = 'msg ' + (type === 'error' ? 'error' : 'success');
+                d.textContent = text;
+                msg.appendChild(d);
+            }
 
-It's been viewed hundreds of thousands of times. Women have stopped me on the street to talk to me about it.
+            function clearMessage(){ msg.innerHTML = ''; }
 
-I've been overwhelmed by hundreds of messages from people sharing support and their own experiences of it.
+            resetBtn.addEventListener('click', () => {
+                form.reset();
+                clearMessage();
+                form.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+            });
 
-Usually I cover technology news. But given the response, it felt important to talk about this as well.
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                clearMessage();
 
-"Brain fog" isn't a medical term. But you may well know exactly what I'm talking about.
+                // Basic constraint validation
+                if (!form.checkValidity()){
+                    // highlight invalid fields
+                    Array.from(form.elements).forEach(el => {
+                        if (el.willValidate && !el.checkValidity()){
+                            el.classList.add('field-error');
+                        } else {
+                            el.classList.remove('field-error');
+                        }
+                    });
+                    showMessage('Please fix the highlighted fields and try again.', 'error');
+                    return;
+                }
 
-That moment when you suddenly can't remember the word for something really obvious, or you're mid-sentence and you lose your train of thought. It's infuriating, and it can be embarrassing.</p>
-</div>
+                // Prepare data (files are not uploaded in this demo)
+                const data = new FormData(form);
+                const payload = {
+                    name: data.get('name'),
+                    email: data.get('email'),
+                    topic: data.get('topic'),
+                    rating: data.get('rating'),
+                    comments: data.get('comments')
+                };
+
+                // Simulate send
+                submitBtn.setAttribute('aria-busy','true');
+                submitBtn.disabled = true;
+                setTimeout(() => {
+                    submitBtn.removeAttribute('aria-busy');
+                    submitBtn.disabled = false;
+                    showMessage('Thank you! Your feedback has been received.', 'success');
+                    console.log('Feedback payload:', payload);
+                    form.reset();
+                }, 900);
+            });
+        })();
+    </script>
 </body>
 </html>
-<!-- tags -  <> -->
-<!--elements <> </> -->
-<!--shortcut structure -> shift + 1 = ! -->
-<!-- shortcut -comments -> ctrl +/   -->
-<!-- devices ->  -->
-<!--formatting tags - <b>,<i>,<u>,<sup>,<sub>,<mark>,<hr>,
--->
+
  
